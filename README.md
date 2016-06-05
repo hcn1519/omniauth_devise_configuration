@@ -1,27 +1,53 @@
-<style type="text/css">
-  code {
-    white-space: nowrap;
-  }
-</style>
-<h3>Devise와 Ommiauth를 이용하여 facebook, google, naver 아이디로 로그인</h3>
+# Devise와 Ommiauth를 이용하여 facebook, google, naver, kakao, instagram 아이디로 로그인
 
-1. config/initializers/devise.rb
+Devise gem과 omniauth gem을 활용하여 facebook, google, naver, kakao, instagram 아이디로 로그인할 수 있도록 해주는 소스입니다.
 
-<code>
+## Getting Started
+
+다음의 gem을 설치합니다.
+### Gemfile
+
+```
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-naver'
+gem "omniauth-google-oauth2"
+gem 'omniauth-kakao', :git => 'git://github.com/hcn1519/omniauth-kakao'
+gem 'omniauth-instagram'
+```
+```
+bundle install
+```
+
+### 필요한 MVC 설정
+
+```
+rails generate devise:install
+rails generate devise user
+rails generate devise:views user
+rails generate devise:controllers user
+rails g migration add_name_to_users name:string
+rails g model identity user:references provider:string uid:string
+```
+
+### config/initializers/devise.rb
+
+```
 config.omniauth :facebook, "key", "secret"
 config.omniauth :naver, "key", "secret"
 config.omniauth :google_oauth2, "key", "secret"
-</code>
+```
 
-2. config/routes.rb
+### config/routes.rb
 
-<code>
+```
 devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }
-</code>
+```
 
-3. app/models/identity.rb
+### app/models/identity.rb
 
-<code>
+```
 class Identity < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :uid, :provider
@@ -31,11 +57,11 @@ class Identity < ActiveRecord::Base
     find_or_create_by(uid: auth.uid, provider: auth.provider)
   end
 end
-</code>
+```
 
-4. app/models/user.rb
+### app/models/user.rb
 
-<code>
+```
 class User < ActiveRecord::Base
   
   # Include default devise modules. Others available are:
@@ -89,12 +115,11 @@ class User < ActiveRecord::Base
   end
   
 end
+```
 
-</code>
-
-5. app/controllers/user/omniauth_callbacks_controller.rb
+### app/controllers/user/omniauth_callbacks_controller.rb
  
-<code>
+```
 class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def self.provides_callback_for(provider)
@@ -121,4 +146,4 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       root_path
   end
 end
-</code>
+```
