@@ -1,10 +1,11 @@
-# Devise와 Ommiauth를 이용하여 facebook, google, naver, kakao, instagram 아이디로 로그인
+# Devise와 Ommiauth를 이용하여 SNS 아이디로 로그인
 
-Devise gem과 omniauth gem을 활용하여 facebook, google, naver, kakao, instagram 아이디로 로그인할 수 있도록 해주는 소스입니다.
+Devise gem과 omniauth gem을 활용하여 facebook, google, naver, kakao, instagram 아이디로 로그인할 수 있도록 해주는 기능입니다.
 
 ## Getting Started
 
 다음의 gem을 설치합니다.
+
 ### Gemfile
 
 ```
@@ -37,6 +38,8 @@ rails g model identity user:references provider:string uid:string
 config.omniauth :facebook, "key", "secret"
 config.omniauth :naver, "key", "secret"
 config.omniauth :google_oauth2, "key", "secret"
+config.omniauth :kakao, "key", :redirect_path => "/users/auth/kakao/callback"  
+config.omniauth :instagram, "key", "secret"
 ```
 
 ### config/routes.rb
