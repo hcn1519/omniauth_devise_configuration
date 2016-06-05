@@ -1,3 +1,8 @@
+<style type="text/css">
+  code {
+    white-space: nowrap;
+  }
+</style>
 <h3>Devise와 Ommiauth를 이용하여 facebook, google, naver 아이디로 로그인</h3>
 
 1. config/initializers/devise.rb
