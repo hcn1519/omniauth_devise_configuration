@@ -10,12 +10,6 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '73125c0fbc1ac0710f63d293736facbdb7f507b640ac4e01e1a3f91fe50717a9e42f72c40a815ba5758251b94c61c0a72ba4b4ef95d1110614cfc3b5b31b7da4'
 
-  config.omniauth :facebook, "key", "secret"
-  config.omniauth :naver, "key", "secret"
-  config.omniauth :google_oauth2, "key", "secret"
-  config.omniauth :kakao, "key", :redirect_path => "/users/auth/kakao/callback"  
-  config.omniauth :instagram, "key", "secret"
-  
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class

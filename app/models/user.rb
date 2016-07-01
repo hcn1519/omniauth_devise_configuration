@@ -21,21 +21,13 @@ class User < ActiveRecord::Base
         
         # 없다면 새로운 데이터를 생성한다.
         if user.nil?
-          if auth.provider == "naver"
-            user = User.new(
-              name: auth.info.name,
-              email: auth.info.email,
-              password: Devise.friendly_token[0,20]
-            )
-          else
-            user = User.new(
-              name: auth.extra.raw_info.name,
-              email: auth.info.email,
-              password: Devise.friendly_token[0,20]
-            )
-          end  
-            
-            user.save!
+          user = User.new(
+            name: auth.info.name,
+            email: auth.info.email,
+            password: Devise.friendly_token[0,20]
+          )            
+          
+          user.save!
         end
         
       end
@@ -50,4 +42,11 @@ class User < ActiveRecord::Base
     
   end
   
+  def email_required?
+    false
+  end
+ 
+  def email_changed?
+    false
+  end
 end

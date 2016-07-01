@@ -2,14 +2,15 @@ source 'https://rubygems.org'
 
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-twitter'
+
 gem 'omniauth-facebook'
 gem 'omniauth-naver'
 gem "omniauth-google-oauth2"
+gem 'omniauth-instagram'
 
+gem 'omniauth-line'
 gem 'omniauth-kakao', :git => 'git://github.com/hcn1519/omniauth-kakao'
 
-gem 'omniauth-instagram'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

@@ -14,8 +14,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-naver'
 gem "omniauth-google-oauth2"
-gem 'omniauth-kakao', :git => 'git://github.com/hcn1519/omniauth-kakao'
 gem 'omniauth-instagram'
+gem 'omniauth-kakao', :git => 'git://github.com/hcn1519/omniauth-kakao'
+gem 'omniauth-line'
 ```
 ```
 bundle install
@@ -38,8 +39,10 @@ rails g model identity user:references provider:string uid:string
 config.omniauth :facebook, "key", "secret"
 config.omniauth :naver, "key", "secret"
 config.omniauth :google_oauth2, "key", "secret"
+
 config.omniauth :kakao, "key", :redirect_path => "/users/auth/kakao/callback"  
 config.omniauth :instagram, "key", "secret"
+config.omniauth :line, "key", "secret"
 ```
 
 ### config/routes.rb
@@ -88,21 +91,13 @@ class User < ActiveRecord::Base
         
         # 없다면 새로운 데이터를 생성한다.
         if user.nil?
-          if auth.provider == "naver"
-            user = User.new(
-              name: auth.info.name,
-              email: auth.info.email,
-              password: Devise.friendly_token[0,20]
-            )
-          else
-            user = User.new(
-              name: auth.extra.raw_info.name,
-              email: auth.info.email,
-              password: Devise.friendly_token[0,20]
-            )
-          end  
-            
-            user.save!
+          user = User.new(
+            name: auth.info.name,
+            email: auth.info.email,
+            password: Devise.friendly_token[0,20]
+          )            
+          
+          user.save!
         end
         
       end
@@ -117,6 +112,13 @@ class User < ActiveRecord::Base
     
   end
   
+  def email_required?
+    false
+  end
+ 
+  def email_changed?
+    false
+  end
 end
 ```
 
@@ -141,7 +143,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     }
   end
 
-  [:instagram, :kakao, :naver, :facebook, :google_oauth2].each do |provider|
+  [:instagram, :kakao, :naver, :facebook, :google_oauth2, :line].each do |provider|
     provides_callback_for provider
   end
 

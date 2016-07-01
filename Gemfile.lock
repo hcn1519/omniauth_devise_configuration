@@ -96,7 +96,6 @@ GEM
     multipart-post (2.0.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    oauth (0.5.1)
     oauth2 (1.1.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0, < 1.5.2)
@@ -116,17 +115,14 @@ GEM
     omniauth-instagram (1.0.2)
       omniauth (~> 1)
       omniauth-oauth2 (~> 1)
+    omniauth-line (0.0.2)
+      json (~> 1.3)
+      omniauth-oauth2 (~> 1.3.1)
     omniauth-naver (0.1.0)
       omniauth-oauth2 (~> 1.2)
-    omniauth-oauth (1.1.0)
-      oauth
-      omniauth (~> 1.0)
     omniauth-oauth2 (1.3.1)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    omniauth-twitter (1.2.1)
-      json (~> 1.3)
-      omniauth-oauth (~> 1.1)
     orm_adapter (0.5.0)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -210,8 +206,8 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-instagram
   omniauth-kakao!
+  omniauth-line
   omniauth-naver
-  omniauth-twitter
   rails (= 4.2.5)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
